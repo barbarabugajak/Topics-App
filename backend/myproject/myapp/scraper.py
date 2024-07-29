@@ -26,6 +26,16 @@ def scrape_cnn():
         return None
 
 
-# def scrape():
-#     data_cnn = scrape_cnn()
+def scrape():
+    data_cnn = scrape_cnn()
+    try:
+        news_category = Category.objects.get(name="News")
+    except:
+        raise Exception("Category 'News' does not exist")
+    for topic in data_cnn:
+        try:
+            user = Topic.objects.get_or_create(name=topic, link="#", category=news_category, language="English")
+        except:
+            pass
+    return True
     
