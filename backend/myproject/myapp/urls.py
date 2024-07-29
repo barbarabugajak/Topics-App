@@ -16,9 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from .views import TopicView
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    # include myapp urls
-    path("", include('myapp.urls')),
+    path('api/topic/<int:pk>', TopicView.as_view(), name='topics')
 ]
