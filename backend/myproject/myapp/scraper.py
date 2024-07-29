@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from myapp.models import Topic
+from .models import Category, Topic
 
 def scrape_cnn():
     # URL of the website to scrape
@@ -28,14 +28,20 @@ def scrape_cnn():
 
 def scrape():
     data_cnn = scrape_cnn()
+    print(data_cnn)
     try:
-        news_category = Category.objects.get(name="News")
-    except:
-        raise Exception("Category 'News' does not exist")
-    for topic in data_cnn:
+        news, created = Category.objects.get_or_create(pk=1)
+        print(news)
+    except Exception as e:
+        print(f"Failed to create a category: {e}")
+    for topic_name in data_cnn:
         try:
-            user = Topic.objects.get_or_create(name=topic, link="#", category=news_category, language="English")
-        except:
-            pass
+            topic, created = Topic.objects.get_or_create(name=topic_name, link="#", category=news, language="English")
+            if created:
+                topic.save()
+        # Exceptin as e
+        except Exception as e:
+            print(f"Failed to create a topic: {e}")
+    print(Topic.objects.all())
     return True
     

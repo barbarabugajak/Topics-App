@@ -4,9 +4,10 @@ from rest_framework import serializers
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = ['name']
 
 class TopicSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
     class Meta:
         model = Topic
-        fields = '__all__'
+        fields = ['id', 'name', 'link', 'category', 'language']

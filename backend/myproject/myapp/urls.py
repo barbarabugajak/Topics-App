@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import TopicView
+from .views import TopicView, getRandomTopicAPI
 urlpatterns = [
-    path('api/topic/<int:pk>', TopicView.as_view(), name='topics')
+    path('api/topic/<int:pk>', TopicView.as_view(), name='topic'),
+    path('api/random_topic', getRandomTopicAPI, name='random_topic'),
 ]
