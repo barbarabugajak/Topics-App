@@ -18,25 +18,30 @@ def scrape_cnn():
         titles = soup.find_all(class_="container__link container__link--type-article container_ribbon__link container_ribbon__left container_ribbon__light")
         # Print the titles
         data = []
+        urls = []
         for title in titles:
+            # Get the href of the title
             data.append(title.get_text().strip())
-        return data
+            href = title.get('href')
+            urls.append(f"{url}{href}")
+
+        return data, urls
     else:
         print(f"Failed to retrieve the page. Status code: {response.status_code}")
         return None
 
 
 def scrape():
-    data_cnn = scrape_cnn()
-    print(data_cnn)
+    data_cnn = scrape_cnn()[0]
+    urls_cnn = scrape_cnn()[1]
     try:
         news, created = Category.objects.get_or_create(pk=1)
         print(news)
     except Exception as e:
         print(f"Failed to create a category: {e}")
-    for topic_name in data_cnn:
+    for i in range(len(data_cnn)):
         try:
-            topic, created = Topic.objects.get_or_create(name=topic_name, link="#", category=news, language="English")
+            topic, created = Topic.objects.get_or_create(name=data_cnn[i], link=urls_cnn[i], category=news, language="English")
             if created:
                 topic.save()
         # Exceptin as e
@@ -44,4 +49,5 @@ def scrape():
             print(f"Failed to create a topic: {e}")
     print(Topic.objects.all())
     return True
-    
+
+scrape()
