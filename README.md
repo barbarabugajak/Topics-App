@@ -1,5 +1,27 @@
-# React Native (Frontend), Django REST (backend)
+# Conversation Starter
 
-The frontend fetches a randomly-chosen topic, and shows it to user, along with its link - for example for current weather.
+![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Version](https://img.shields.io/badge/version-1.1.2-green)
 
-Along with custom topics, the app scrapes CNN and creates instances of Topic class in the backend, for the newest news topics.
+## 🚀 About the Project
+A mobile app that suggests topics for conversation
+
+## 🎮 Features
+- ✅ Suggests random topics to start a great conversation
+- ✅ Scrapes CNN for the most recent news
+- ✅ Provides links to dive deeper into a subject
+
+## 📷 Screenshots
+
+## 🛠️ Technologies used
+ - React Native (Frontend)
+ - Django REST Framework (backend)
+
+## 🏗️ Installation
+1. Clone the repo  
+   ```sh
+   git clone https://github.com/yourusername/repository.git
+2. Start the backend
+      ```sh
+   python3 manage.py runserver
+4. Start the frontend
+   
